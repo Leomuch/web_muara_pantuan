@@ -17,3 +17,6 @@ Route::get('/kontak', function () {
 Route::view('/admin/dashboard', 'admin.dashboard');
 Route::view('/admin/sejarah', 'admin.sejarah.index');
 Route::view('/admin/sejarah/create', 'admin.sejarah.create');
+Route::get('/struktur', function () {
+    return view('pages.struktur'); // pastikan file ini ada
+})->name('struktur');
