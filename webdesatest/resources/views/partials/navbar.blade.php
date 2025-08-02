@@ -1,0 +1,26 @@
+<nav class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <div class="flex-shrink-0">
+        <a href="{{ url('/') }}" class="text-xl font-bold text-gray-800">LogoDesa</a>
+      </div>
+      <div class="hidden md:flex space-x-8">
+        @php
+            $navItems = [
+                ['label' => 'Beranda', 'url' => '/'],
+                ['label' => 'Profil', 'url' => '/profil'],
+                ['label' => 'Struktur Desa', 'url' => '/struktur'],
+                ['label' => 'Kontak', 'url' => '/kontak'],
+            ];
+        @endphp
+
+        @foreach ($navItems as $item)
+          <a href="{{ url($item['url']) }}" class="nav-link relative group text-gray-700 hover:text-blue-600 transition-colors duration-300">
+            {{ $item['label'] }}
+            <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        @endforeach
+      </div>
+    </div>
+  </div>
+</nav>
