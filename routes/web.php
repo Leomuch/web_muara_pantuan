@@ -20,3 +20,7 @@ Route::view('/admin/sejarah/create', 'admin.sejarah.create');
 Route::get('/struktur', function () {
     return view('pages.struktur'); // pastikan file ini ada
 })->name('struktur');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
