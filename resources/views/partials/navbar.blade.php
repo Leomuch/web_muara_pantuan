@@ -15,7 +15,7 @@
         @endphp
 
         @foreach ($navItems as $item)
-          <a href="{{ url($item['url']) }}" class="nav-link relative group text-gray-700 hover:text-blue-600 transition-colors duration-300">
+          <a href="{{ url($item['url']) }}" class="nav-link relative group text-gray-700 hover:text-blue-600 transition-colors duration-300 px-2">
             {{ $item['label'] }}
             <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
           </a>
