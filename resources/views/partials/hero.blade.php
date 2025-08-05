@@ -1,14 +1,15 @@
 <!-- resources/views/partials/hero.blade.php -->
-<section class="relative w-full min-h-screen bg-cover bg-center" style="background-image: url('{{ asset('img/bgdesapantuan.jpg') }}')">
+<section 
+    style="background: url('{{ asset('img/bgdesapantuan.jpg') }}') center center / cover no-repeat; min-height: 100vh; position: relative; width: 100%;">
 
     <!-- Overlay -->
-    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4);"></div>
 
     <!-- Konten -->
-    <div class="relative z-10 flex items-center justify-center min-h-screen px-4 text-center text-white">
+    <div style="position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; color: white; padding: 0 1rem;">
         <div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Website Desa Muara Pantuan</h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">
+            <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">Website Desa Muara Pantuan</h1>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto;">
                 Media informasi dan layanan digital untuk masyarakat desa, menyampaikan pengumuman, berita terkini, serta agenda kegiatan.
             </p>
         </div>
