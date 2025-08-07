@@ -49,7 +49,7 @@
       <div class="grid md:grid-cols-3 gap-8 text-center">
         <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition">
           <img src="{{ asset('img/kepala-desa.jpg') }}" alt="Kepala Desa" class="w-24 h-24 mx-auto rounded-full shadow-md mb-4 object-cover">
-          <h4 class="font-bold text-lg text-green-800">H. Edy</h4>
+          <h4 class="font-bold text-lg text-green-800">H. Edi</h4>
           <p class="text-gray-600 text-sm">Kepala Desa</p>
         </div>
         <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition">
