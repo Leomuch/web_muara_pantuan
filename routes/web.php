@@ -20,7 +20,6 @@ Route::view('/admin/sejarah/create', 'admin.sejarah.create');
 Route::get('/struktur', function () {
     return view('pages.struktur'); // pastikan file ini ada
 })->name('struktur');
-<<<<<<< HEAD
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -83,5 +82,3 @@ Route::prefix('admin')->group(function () {
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
 });
-=======
->>>>>>> 8d4f7b3ef0378cefa33bdc40c6dd4c9486e180f9
