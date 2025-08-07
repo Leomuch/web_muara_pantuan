@@ -23,8 +23,6 @@ Route::get('/struktur', function () {
     return view('pages.struktur');
 })->name('struktur');
 
-// ===== AUTH DEFAULT USER (JIKA DIPAKAI) =====
-Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // ===== ADMIN AREA =====
@@ -32,8 +30,8 @@ Route::prefix('admin')->group(function () {
 
     // Halaman login admin - hanya jika belum login
     Route::middleware('guest:admin')->group(function () {
-        Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
-        Route::post('/login', [AdminAuthController::class, 'login']);
+        Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+        Route::post('/admin/login', [AdminAuthController::class, 'admin.login.submit']);
     });
 
     // Halaman setelah login - hanya jika sudah login
