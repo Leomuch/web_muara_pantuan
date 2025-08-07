@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 
+// ===== HALAMAN UTAMA USER =====
 Route::get('/', function () {
     return view('pages.home');
 })->name('home');
@@ -15,25 +16,31 @@ Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
-Route::view('/admin/dashboard', 'admin.dashboard');
-Route::view('/admin/sejarah', 'admin.sejarah.index');
-Route::view('/admin/sejarah/create', 'admin.sejarah.create');
 Route::get('/struktur', function () {
     return view('pages.struktur'); // pastikan file ini ada
 })->name('struktur');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// ===== ADMIN STATIC VIEW (Optional if not using controller) =====
+Route::view('/admin/dashboard', 'admin.dashboard');
+Route::view('/admin/sejarah', 'admin.sejarah.index');
+Route::view('/admin/sejarah/create', 'admin.sejarah.create');
 
 // ===== ADMIN AREA =====
 Route::prefix('admin')->group(function () {
 
-    // Halaman login admin - hanya jika belum login
+    // Login Admin - hanya jika belum login
     Route::middleware('guest:admin')->group(function () {
         Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+<<<<<<< HEAD
         Route::post('/login', [AdminAuthController::class, 'admin.login.submit']);
+=======
+        Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
+>>>>>>> 4962145199bf0e154a68146d73b61c33dc6c4000
     });
 
-    // Halaman setelah login - hanya jika sudah login
+    // Halaman admin - hanya jika sudah login
     Route::middleware('auth:admin')->group(function () {
 
         // Dashboard
@@ -41,19 +48,18 @@ Route::prefix('admin')->group(function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
 
-        // Halaman Sejarah (statis)
+        // Halaman Sejarah
         Route::get('/sejarah', function () {
             return view('admin.sejarah.index');
         });
+
         Route::get('/sejarah/create', function () {
             return view('admin.sejarah.create');
         });
 
         // ✅ CRUD PENGUMUMAN
         Route::resource('pengumuman', PengumumanController::class)
-            ->parameters([
-                'pengumuman' => 'pengumuman'
-            ])
+            ->parameters(['pengumuman' => 'pengumuman'])
             ->names([
                 'index'   => 'pengumuman.index',
                 'create'  => 'pengumuman.create',
@@ -66,9 +72,7 @@ Route::prefix('admin')->group(function () {
 
         // ✅ CRUD BERITA
         Route::resource('berita', BeritaController::class)
-            ->parameters([
-                'berita' => 'berita'
-            ])
+            ->parameters(['berita' => 'berita'])
             ->names([
                 'index'   => 'berita.index',
                 'create'  => 'berita.create',
