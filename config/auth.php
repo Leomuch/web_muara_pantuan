@@ -42,11 +42,7 @@ return [
         ],
         'admin' => [
             'driver' => 'session',
-<<<<<<< HEAD
             'provider' => 'admin',
-=======
-            'provider' => 'admins',
->>>>>>> 4962145199bf0e154a68146d73b61c33dc6c4000
         ],
     ],
 
@@ -72,12 +68,8 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-<<<<<<< HEAD
 
         'admin' => [
-=======
-        'admins' => [
->>>>>>> 4962145199bf0e154a68146d73b61c33dc6c4000
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],

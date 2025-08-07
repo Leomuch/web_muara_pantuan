@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - @yield('title')</title>
-<<<<<<< HEAD
-    @vite(['resources/css/app.collator_sort_with_sort_keys', 'resources/js/app.js'])
-=======
-    @vite('resources/sass/app.scss')
->>>>>>> 8d4f7b3ef0378cefa33bdc40c6dd4c9486e180f9
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 text-gray-800">
     <nav class="bg-green-700 text-white p-4">

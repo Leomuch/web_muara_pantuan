@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
-use App\Http\Controllers\PengumumanController;
-use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\PengumumanController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\HomeController;
 
 // ===== HALAMAN UTAMA USER =====
 Route::get('/', function () {
