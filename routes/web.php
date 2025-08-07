@@ -1,12 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminAuthController;
-use App\Http\Controllers\Admin\BeritaController;
-use App\Http\Controllers\Admin\PengumumanController;
-use Illuminate\Support\Facades\Auth;
 
-// ===== Halaman Utama User =====
 Route::get('/', function () {
     return view('pages.home');
 })->name('home');
@@ -19,9 +14,13 @@ Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
+Route::view('/admin/dashboard', 'admin.dashboard');
+Route::view('/admin/sejarah', 'admin.sejarah.index');
+Route::view('/admin/sejarah/create', 'admin.sejarah.create');
 Route::get('/struktur', function () {
-    return view('pages.struktur');
+    return view('pages.struktur'); // pastikan file ini ada
 })->name('struktur');
+<<<<<<< HEAD
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -84,3 +83,5 @@ Route::prefix('admin')->group(function () {
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
 });
+=======
+>>>>>>> 8d4f7b3ef0378cefa33bdc40c6dd4c9486e180f9
