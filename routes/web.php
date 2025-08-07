@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\HomeController;
 
 // ===== HALAMAN UTAMA USER =====
 Route::get('/', function () {
@@ -33,11 +36,7 @@ Route::prefix('admin')->group(function () {
     // Login Admin - hanya jika belum login
     Route::middleware('guest:admin')->group(function () {
         Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
-<<<<<<< HEAD
-        Route::post('/login', [AdminAuthController::class, 'admin.login.submit']);
-=======
         Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
->>>>>>> 4962145199bf0e154a68146d73b61c33dc6c4000
     });
 
     // Halaman admin - hanya jika sudah login
