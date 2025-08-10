@@ -35,30 +35,11 @@
             🌾 Admin Desa
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2">
-<<<<<<< HEAD
             <a href="{{ route('berita.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">📄 Kelola Berita</a>
             <a href="{{ route('pengumuman.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">📢 Kelola Pengumuman</a>
             <a href="{{ route('profil.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">🏛 Profil Desa</a>
             <a href="{{ route('struktur_desa.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">👔 Jabatan Desa</a>
             <a href="{{ route('agenda_kegiatan.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">📅 Agenda Kegiatan</a>
-=======
-            <a href="{{ route('berita.index') }}"
-               class="block px-4 py-2 rounded-lg hover:bg-blue-800 hover:translate-x-1 transition-all duration-300">
-                📄 Kelola Berita
-            </a>
-            <a href="{{ route('pengumuman.index') }}"
-               class="block px-4 py-2 rounded-lg hover:bg-blue-800 hover:translate-x-1 transition-all duration-300">
-                📢 Kelola Pengumuman
-            </a>
-            <a href="{{ route('profil.index') }}"
-               class="block px-4 py-2 rounded-lg hover:bg-blue-800 hover:translate-x-1 transition-all duration-300">
-                🏛 Profil Desa
-            </a>
-            <a href="{{ route('struktur_desa.index') }}"
-               class="block px-4 py-2 rounded-lg hover:bg-blue-800 hover:translate-x-1 transition-all duration-300">
-                👔 Jabatan Desa
-            </a>
->>>>>>> bd333eff9e241c765533e3429846c44a0b2ec80e
         </nav>
         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="px-4 py-4 border-t border-blue-700">
             @csrf
