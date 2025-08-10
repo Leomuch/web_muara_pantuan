@@ -16,7 +16,7 @@
         <ul class="space-y-2 text-sm">
           <li><a href="{{ route('home') }}" class="hover:underline hover:ml-1 transition-all">Beranda</a></li>
           <li><a href="{{ route('profil') }}" class="hover:underline hover:ml-1 transition-all">Profil</a></li>
-          <li><a href="{{ url('/struktur') }}" class="hover:underline hover:ml-1 transition-all">Struktur Desa</a></li>
+          <li><a href="{{ url('/struktur-desa') }}" class="hover:underline hover:ml-1 transition-all">Struktur Desa</a></li>
           <li><a href="{{ route('kontak') }}" class="hover:underline hover:ml-1 transition-all">Kontak</a></li>
         </ul>
       </div>

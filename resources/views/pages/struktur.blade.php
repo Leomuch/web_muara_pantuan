@@ -17,35 +17,33 @@
         </div>
 
         <!-- Foto Kepala Desa -->
+        @if($kepalaDesa)
         <div class="text-center mb-16 animate-zoom-in">
             <div class="inline-block bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105">
-                <img src="{{ asset('img/kepala-desa.jpg') }}" 
-                     alt="Kepala Desa" 
-                     class="w-40 h-40 mx-auto rounded-full object-cover shadow-md mb-4">
-                <h2 class="text-2xl font-bold text-green-800">H.Edy</h2>
-                <p class="text-gray-600">Kepala Desa</p>
+                <img src="{{ $kepalaDesa->foto ? asset('storage/' . $kepalaDesa->foto) : asset('img/default-profile.jpg') }}" 
+                    alt="Kepala Desa" 
+                    class="w-40 h-40 mx-auto rounded-full object-cover shadow-md mb-4">
+                <h2 class="text-2xl font-bold text-green-800">{{ $kepalaDesa->nama }}</h2>
+                <p class="text-gray-600">{{ $kepalaDesa->jabatan }}</p>
             </div>
         </div>
+        @else
+        <p class="text-center text-red-500">Data Kepala Desa belum tersedia.</p>
+        @endif
 
         <!-- Struktur Bawahan -->
         <div class="grid md:grid-cols-3 gap-10">
-            <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:scale-105 hover:shadow-2xl transition animate-slide-in-left">
-                <img src="{{ asset('img/sekdes.jpg') }}" alt="Sekretaris Desa" class="w-28 h-28 mx-auto rounded-full shadow mb-4 object-cover">
-                <h3 class="font-bold text-lg text-green-800">Sardila</h3>
-                <p class="text-gray-600">Sekretaris Desa</p>
+            @foreach($struktur as $orang)
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:scale-105 hover:shadow-2xl transition">
+                <img 
+                    src="{{ $orang->foto ? asset('storage/' . $orang->foto) : asset('img/default-profile.jpg') }}" 
+                    alt="{{ $orang->jabatan }}" 
+                    class="w-28 h-28 mx-auto rounded-full shadow mb-4 object-cover"
+                >
+                <h3 class="font-bold text-lg text-green-800">{{ $orang->nama }}</h3>
+                <p class="text-gray-600">{{ $orang->jabatan }}</p>
             </div>
-
-            <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:scale-105 hover:shadow-2xl transition animate-fade-in-up delay-200">
-                <img src="{{ asset('img/kadus.jpg') }}" alt="Kepala Dusun" class="w-28 h-28 mx-auto rounded-full shadow mb-4 object-cover">
-                <h3 class="font-bold text-lg text-green-800">idk</h3>
-                <p class="text-gray-600">Kepala Dusun</p>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:scale-105 hover:shadow-2xl transition animate-slide-in-right">
-                <img src="{{ asset('img/bendahara.jpg') }}" alt="Bendahara Desa" class="w-28 h-28 mx-auto rounded-full shadow mb-4 object-cover">
-                <h3 class="font-bold text-lg text-green-800">idk</h3>
-                <p class="text-gray-600">Bendahara Desa</p>
-            </div>
+            @endforeach
         </div>
 
         <!-- Hiasan garis -->

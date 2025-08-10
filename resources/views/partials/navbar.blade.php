@@ -9,7 +9,7 @@
             $navItems = [
                 ['label' => 'Beranda', 'url' => '/'],
                 ['label' => 'Profil', 'url' => '/profil'],
-                ['label' => 'Struktur Desa', 'url' => '/struktur'],
+                ['label' => 'Struktur Desa', 'url' => '/struktur-desa'],
                 ['label' => 'Kontak', 'url' => '/kontak'],
             ];
         @endphp

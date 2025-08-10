@@ -5,6 +5,9 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\StrukturDesaController as AdminStrukturDesaController;
+use App\Http\Controllers\StrukturDesaController as FrontendStrukturDesaController;
+
 
 // ===== HALAMAN UTAMA USER =====
 Route::get('/', function () {
@@ -19,9 +22,11 @@ Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
-Route::get('/struktur', function () {
-    return view('pages.struktur'); // pastikan file ini ada
-})->name('struktur');
+// Route::get('/struktur', function () {
+//     return view('pages.struktur'); // pastikan file ini ada
+// })->name('struktur');
+
+Route::get('/struktur-desa', [FrontendStrukturDesaController::class, 'index'])->name('pages.struktur');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -47,6 +52,10 @@ Route::prefix('admin')->group(function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
 
+        Route::get('/admin/profil', function () {
+            return 'Halaman Profil Desa';
+        })->name('profil.index');
+
         // Halaman Sejarah
         Route::get('/sejarah', function () {
             return view('admin.sejarah.index');
@@ -71,16 +80,26 @@ Route::prefix('admin')->group(function () {
 
         // ✅ CRUD BERITA
         Route::resource('berita', BeritaController::class)
-            ->parameters(['berita' => 'berita'])
-            ->names([
-                'index'   => 'berita.index',
-                'create'  => 'berita.create',
-                'store'   => 'berita.store',
+        ->parameters(['berita' => 'berita'])
+        ->names([
+            'index'   => 'berita.index',
+            'create'  => 'berita.create',
+            'store'   => 'berita.store',
                 'edit'    => 'berita.edit',
                 'update'  => 'berita.update',
                 'destroy' => 'berita.destroy',
                 'show'    => 'berita.show',
             ]);
+            
+        // ✅ CRUD Struktur Desa
+        Route::resource('struktur-desa', AdminStrukturDesaController::class)->names([
+            'index' => 'struktur_desa.index',
+            'create' => 'struktur_desa.create',
+            'store' => 'struktur_desa.store',
+            'edit' => 'struktur_desa.edit',
+            'update' => 'struktur_desa.update',
+            'destroy' => 'struktur_desa.destroy',
+        ]);
 
         // Logout Admin
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
