@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\StrukturDesa;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use Exception;
 
 class StrukturDesaController extends Controller
@@ -28,6 +29,14 @@ class StrukturDesaController extends Controller
             'foto' => 'nullable|image|max:2048',
         ]);
 
+        // Cek dulu apakah jabatan sudah ada
+        $exists = StrukturDesa::where('jabatan', $request->jabatan)->exists();
+        if ($exists) {
+            return redirect()->back()
+                            ->withInput()
+                            ->with('error', 'Jabatan tersebut sudah ada!');
+        }
+
         try {
             $struktur = $request->only(['nama', 'jabatan']);
 
@@ -38,10 +47,11 @@ class StrukturDesaController extends Controller
             StrukturDesa::create($struktur);
 
             return redirect()->route('struktur_desa.index')
-                             ->with('success', 'Data berhasil ditambahkan!');
+                            ->with('success', 'Data berhasil ditambahkan!');
         } catch (Exception $e) {
             return redirect()->back()
-                             ->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
+                            ->withInput()
+                            ->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
         }
     }
 
@@ -53,9 +63,10 @@ class StrukturDesaController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Validasi unique jabatan tapi kecualikan record yang sedang diedit
         $request->validate([
             'nama' => 'required|string|max:255',
-            'jabatan' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255|unique:struktur_desa,jabatan,' . $id,
             'foto' => 'nullable|image|max:2048',
         ]);
 
@@ -69,10 +80,20 @@ class StrukturDesaController extends Controller
 
             $struktur->update($updateData);
 
-            return redirect()->route('admin.struktur_desa.index')
+            return redirect()->route('struktur_desa.index')
                              ->with('success', 'Data berhasil diupdate!');
+        } catch (QueryException $e) {
+            if ($e->getCode() == '23000' || $e->getCode() == 19) {
+                return redirect()->back()
+                                 ->withInput()
+                                 ->with('error', 'Jabatan tersebut sudah ada!');
+            }
+            return redirect()->back()
+                             ->withInput()
+                             ->with('error', 'Gagal mengupdate data: ' . $e->getMessage());
         } catch (Exception $e) {
             return redirect()->back()
+                             ->withInput()
                              ->with('error', 'Gagal mengupdate data: ' . $e->getMessage());
         }
     }
