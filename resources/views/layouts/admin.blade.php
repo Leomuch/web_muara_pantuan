@@ -30,21 +30,21 @@
 <body class="bg-gray-100 text-gray-800 min-h-screen flex">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-blue-900 text-white flex flex-col shadow-lg animate-slide-in">
+    <aside class="w-64 bg-blue-500 text-white flex flex-col shadow-lg animate-slide-in">
         <div class="px-6 py-5 text-2xl font-bold border-b border-blue-700 tracking-wide">
             🌾 Admin Desa
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2">
-            <a href="{{ route('berita.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">📄 Kelola Berita</a>
-            <a href="{{ route('pengumuman.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">📢 Kelola Pengumuman</a>
-            <a href="{{ route('profil.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">🏛 Profil Desa</a>
-            <a href="{{ route('struktur_desa.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">👔 Jabatan Desa</a>
-            <a href="{{ route('agenda_kegiatan.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">📅 Agenda Kegiatan</a>
+            <a href="{{ route('berita.index') }}" class="block px-4 py-2 rounded hover:bg-blue-600">📄 Berita</a>
+            <a href="{{ route('pengumuman.index') }}" class="block px-4 py-2 rounded hover:bg-blue-600">📢 Pengumuman</a>
+            <a href="{{ route('profil.index') }}" class="block px-4 py-2 rounded hover:bg-blue-600">🏛 Profil Desa</a>
+            <a href="{{ route('struktur_desa.index') }}" class="block px-4 py-2 rounded hover:bg-blue-600">👔 Struktur Desa</a>
+            <a href="{{ route('agenda_kegiatan.index') }}" class="block px-4 py-2 rounded hover:bg-blue-600">📅 Agenda Kegiatan</a>
         </nav>
-        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="px-4 py-4 border-t border-blue-700">
+        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="px-4 py-4 border-t border-white-700">
             @csrf
             <button type="submit"
-                    class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-4 py-2 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
+                    class="w-full bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-800 hover:to-gray-900 px-4 py-2 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
                 🔓 Logout
             </button>
         </form>

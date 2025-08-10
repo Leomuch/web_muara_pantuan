@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\BeritaController;
-use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\StrukturDesaController as AdminStrukturDesaController;
 use App\Http\Controllers\StrukturDesaController as FrontendStrukturDesaController;
 use App\Http\Controllers\Admin\AgendaKegiatanController;
 
 // ===== HALAMAN UTAMA USER =====
-Route::get('/', function () {
-    return view('pages.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/profil', function () {
     return view('pages.profil');
@@ -22,13 +20,7 @@ Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
-// Route::get('/struktur', function () {
-//     return view('pages.struktur'); // pastikan file ini ada
-// })->name('struktur');
-
 Route::get('/struktur-desa', [FrontendStrukturDesaController::class, 'index'])->name('pages.struktur');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // ===== ADMIN STATIC VIEW (Optional if not using controller) =====
 Route::view('/admin/dashboard', 'admin.dashboard');

@@ -19,14 +19,22 @@
         <h3 class="text-3xl font-bold text-center text-green-700 mb-10">Berita Desa</h3>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @forelse ($berita as $item)
             <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <img src="{{ asset('img/berita1.jpg') }}" alt="Berita 1" class="rounded-t-2xl w-full h-56 object-cover">
+                @if($item->gambar)
+                <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" class="rounded-t-2xl w-full h-56 object-cover">
+                @else
+                <img src="{{ asset('img/default-berita.jpg') }}" alt="Default Berita" class="rounded-t-2xl w-full h-56 object-cover">
+                @endif
                 <div class="p-6">
-                    <h5 class="text-xl font-semibold text-gray-800 mb-2">Gotong Royong Bersihkan Lingkungan</h5>
-                    <p class="text-gray-600 mb-4">Warga desa bergotong‑royong membersihkan parit dan jalan desa pada hari Minggu.</p>
-                    <a href="#" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">Baca Selengkapnya</a>
+                    <h5 class="text-xl font-semibold text-gray-800 mb-2">{{ $item->judul }}</h5>
+                    <p class="text-gray-600 mb-4">{{ Str::limit(strip_tags($item->isi ?? $item->deskripsi ?? ''), 120, '...') }}</p>
+                    <a href="{{ route('berita.show', $item->id) }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">Baca Selengkapnya</a>
                 </div>
             </div>
+            @empty
+            <p class="col-span-full text-center text-gray-500">Belum ada berita terbaru.</p>
+            @endforelse
         </div>
     </div>
 </section>
@@ -37,21 +45,21 @@
         <h2 class="text-3xl font-bold mb-6 text-center">Pengumuman Desa</h2>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @forelse ($pengumuman as $item)
             <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <img src="{{ asset('img/pengumuman1.jpg') }}" alt="Gambar Pengumuman 1" class="w-full h-48 object-cover">
+                @if($item->gambar)
+                <img src="{{ asset('storage/' . $item->gambar) }}" alt="Gambar Pengumuman {{ $item->judul }}" class="w-full h-48 object-cover">
+                @else
+                <img src="{{ asset('img/default-pengumuman.jpg') }}" alt="Gambar Default Pengumuman" class="w-full h-48 object-cover">
+                @endif
                 <div class="p-4">
-                    <h3 class="text-xl font-semibold mb-2">Pemberitahuan Pemadaman Listrik</h3>
-                    <p class="text-gray-700 text-sm">Akan ada pemadaman listrik pada 25 Juli 2025 dari pukul 08.00 - 12.00 di wilayah RT 1 hingga RT 3.</p>
+                    <h3 class="text-xl font-semibold mb-2">{{ $item->judul }}</h3>
+                    <p class="text-gray-700 text-sm">{{ Str::limit($item->deskripsi, 120, '...') }}</p>
                 </div>
             </div>
-
-            <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <img src="{{ asset('img/pengumuman2.jpg') }}" alt="Gambar Pengumuman 2" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold mb-2">Vaksinasi Gratis</h3>
-                    <p class="text-gray-700 text-sm">Vaksinasi gratis akan diadakan pada tanggal 27 Juli 2025 di Balai Desa mulai pukul 09.00.</p>
-                </div>
-            </div>
+            @empty
+            <p class="col-span-full text-center text-gray-500">Belum ada pengumuman tersedia.</p>
+            @endforelse
         </div>
     </div>
 </section>
@@ -63,22 +71,33 @@
         <table class="table-auto w-full border-collapse bg-white rounded-lg shadow">
             <thead class="bg-green-100">
                 <tr>
-                    <th class="px-4 py-2">Tanggal</th>
-                    <th class="px-4 py-2">Kegiatan</th>
-                    <th class="px-4 py-2">Tempat</th>
+                    <th class="px-4 py-2 text-center font-semibold">Kegiatan</th>
+                    <th class="px-4 py-2 text-center font-semibold">Tanggal</th>
+                    <th class="px-4 py-2 text-center font-semibold">Jam</th>
+                    <th class="px-4 py-2 text-center font-semibold">Tempat</th>
                 </tr>
             </thead>
             <tbody>
+                @forelse ($agenda as $item)
                 <tr class="text-gray-700 border-t">
-                    <td class="px-4 py-2">27 Juli 2025</td>
-                    <td class="px-4 py-2">Pelatihan UMKM Digital</td>
-                    <td class="px-4 py-2">Balai Desa</td>
+                    <td class="px-4 py-2 text-center">{{ $item->judul }}</td>
+                    <td class="px-4 py-2 text-center">{{ $item->tanggal ? $item->tanggal->translatedFormat('d F Y') : '-' }}</td>
+                    <td class="px-4 py-2 text-center">
+                        @if($item->jam_mulai && $item->jam_selesai)
+                            {{ $item->jam_mulai }} - {{ $item->jam_selesai }}
+                        @elseif($item->jam_mulai)
+                            {{ $item->jam_mulai }}
+                        @else
+                            -
+                        @endif
+                    </td>
+                    <td class="px-4 py-2 text-center">{{ $item->lokasi ?? '-' }}</td>
                 </tr>
-                <tr class="text-gray-700 border-t">
-                    <td class="px-4 py-2">30 Juli 2025</td>
-                    <td class="px-4 py-2">Pertemuan RT se‑Desa</td>
-                    <td class="px-4 py-2">Aula Serbaguna</td>
+                @empty
+                <tr>
+                    <td colspan="4" class="text-center py-4 text-gray-500">Belum ada agenda kegiatan.</td>
                 </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

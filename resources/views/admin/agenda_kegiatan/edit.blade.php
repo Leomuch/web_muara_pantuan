@@ -13,26 +13,35 @@
         <div>
             <label class="block mb-1 font-semibold">Judul <span class="text-red-500">*</span></label>
             <input type="text" name="judul" value="{{ old('judul', $agenda->judul) }}" 
-                   class="w-full border rounded px-3 py-2 @error('judul') border-red-500 @enderror">
+                   class="w-full border rounded px-3 py-2 @error('judul') border-red-500 @enderror" required>
             @error('judul')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label class="block mb-1 font-semibold">Tanggal Mulai <span class="text-red-500">*</span></label>
-            <input type="date" name="tanggal_mulai" value="{{ old('tanggal_mulai', $agenda->tanggal_mulai->format('Y-m-d')) }}" 
-                   class="w-full border rounded px-3 py-2 @error('tanggal_mulai') border-red-500 @enderror">
-            @error('tanggal_mulai')
+            <label class="block mb-1 font-semibold">Tanggal <span class="text-red-500">*</span></label>
+            <input type="date" name="tanggal" value="{{ old('tanggal', $agenda->tanggal ? $agenda->tanggal->format('Y-m-d') : '') }}" 
+                   class="w-full border rounded px-3 py-2 @error('tanggal') border-red-500 @enderror" required>
+            @error('tanggal')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label class="block mb-1 font-semibold">Tanggal Selesai</label>
-            <input type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai', optional($agenda->tanggal_selesai)->format('Y-m-d')) }}" 
-                   class="w-full border rounded px-3 py-2 @error('tanggal_selesai') border-red-500 @enderror">
-            @error('tanggal_selesai')
+            <label class="block mb-1 font-semibold">Jam Mulai</label>
+            <input type="time" name="jam_mulai" value="{{ old('jam_mulai', $agenda->jam_mulai) }}" step="60"
+                   class="w-full border rounded px-3 py-2 @error('jam_mulai') border-red-500 @enderror">
+            @error('jam_mulai')
+                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label class="block mb-1 font-semibold">Jam Selesai</label>
+            <input type="time" name="jam_selesai" value="{{ old('jam_selesai', $agenda->jam_selesai) }}" step="60"
+                   class="w-full border rounded px-3 py-2 @error('jam_selesai') border-red-500 @enderror">
+            @error('jam_selesai')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
@@ -57,8 +66,11 @@
 
         <div>
             <label class="block mb-1 font-semibold">Status</label>
-            <input type="text" name="status" value="{{ old('status', $agenda->status) }}" 
-                   class="w-full border rounded px-3 py-2 @error('status') border-red-500 @enderror">
+            <select name="status" class="w-full border rounded px-3 py-2 @error('status') border-red-500 @enderror" required>
+                <option value="Aktif" {{ old('status', $agenda->status) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                <option value="Selesai" {{ old('status', $agenda->status) == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                <option value="Batal" {{ old('status', $agenda->status) == 'Batal' ? 'selected' : '' }}>Batal</option>
+            </select>
             @error('status')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror

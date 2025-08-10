@@ -9,7 +9,7 @@
         </h1>
 
         <a href="{{ route('pengumuman.create') }}"
-           class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg 
+           class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg 
                   shadow-md transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
             ➕ Tambah Pengumuman
         </a>
@@ -39,7 +39,7 @@
                         </td>
                         <td class="px-6 py-4 border-b border-gray-200 text-center space-x-3">
                             <a href="{{ route('pengumuman.edit', $item->id) }}"
-                               class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200">
+                               class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200">
                                 ✏️ Edit
                             </a>
 

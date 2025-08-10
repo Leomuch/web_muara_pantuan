@@ -3,26 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\AgendaKegiatan;
+use App\Models\Pengumuman;
+use App\Models\Berita;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('home');
+        // Ambil agenda aktif terbaru, misalnya 5 data terbaru
+        $agenda = AgendaKegiatan::where('status', 'Aktif')
+                    ->orderBy('tanggal', 'asc')
+                    ->take(5)
+                    ->get();
+
+        // Ambil pengumuman terbaru, misalnya 6 data terbaru
+        $pengumuman = Pengumuman::orderBy('created_at', 'desc')
+                        ->take(6)
+                        ->get();
+
+        $berita = Berita::orderBy('created_at', 'desc')
+                    ->take(6)
+                    ->get();
+
+
+        // Kirim data agenda ke view 'home'
+        return view('pages.home', compact('agenda', 'pengumuman', 'berita'));
     }
 }

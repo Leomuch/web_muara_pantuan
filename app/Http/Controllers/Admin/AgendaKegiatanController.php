@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class AgendaKegiatanController extends Controller
 {
-
     public function index()
     {
         $agenda = AgendaKegiatan::all();
@@ -24,11 +23,12 @@ class AgendaKegiatanController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'tanggal' => 'required|date',
+            'jam_mulai' => 'nullable|date_format:H:i',
+            'jam_selesai' => 'nullable|date_format:H:i|after_or_equal:jam_mulai',
             'lokasi' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
-            'status' => 'nullable|string|max:50',
+            'status' => 'required|in:Aktif,Selesai,Batal',
         ]);
 
         AgendaKegiatan::create($request->all());
@@ -53,11 +53,12 @@ class AgendaKegiatanController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'tanggal' => 'required|date',
+            'jam_mulai' => 'nullable|date_format:H:i',
+            'jam_selesai' => 'nullable|date_format:H:i|after_or_equal:jam_mulai',
             'lokasi' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
-            'status' => 'nullable|string|max:50',
+            'status' => 'required|in:Aktif,Selesai,Batal',
         ]);
 
         $agenda = AgendaKegiatan::findOrFail($id);

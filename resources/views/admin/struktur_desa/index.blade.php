@@ -10,7 +10,7 @@
             👔 Struktur Desa
         </h1>
         <a href="{{ route('struktur_desa.create') }}" 
-           class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg 
+           class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg 
                   shadow-md transform hover:scale-105 transition-all duration-300">
            ➕ Tambah Jabatan
         </a>
@@ -47,7 +47,7 @@
                         <td class="px-4 py-3 border-b border-gray-200 text-center">
                             <div class="flex justify-center gap-2">
                                 <a href="{{ route('struktur_desa.edit', $item->id) }}" 
-                                   class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200">
+                                   class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg shadow-sm transition duration-200">
                                     ✏️ Edit
                                 </a>
                                 <form action="{{ route('struktur_desa.destroy', $item->id) }}" 

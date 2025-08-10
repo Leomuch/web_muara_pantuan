@@ -6,7 +6,7 @@
 @section('content')
 <div class="animate-fade-in">
     <!-- Judul Dashboard -->
-    <h1 class="text-4xl font-extrabold mb-4 text-blue-900 flex items-center gap-3">
+    <h1 class="text-4xl font-extrabold mb-4 text-blue-500 flex items-center gap-3">
         📊 Dashboard Admin
     </h1>
     <p class="text-gray-600 mb-8">
@@ -97,7 +97,7 @@
 
     <!-- Section Tips -->
     <div class="mt-10 bg-gradient-to-r from-blue-50 to-blue-100 p-8 rounded-xl shadow-inner">
-        <h2 class="text-2xl font-bold text-blue-800 mb-3">📌 Tips Penggunaan</h2>
+        <h2 class="text-2xl font-bold text-blue-500 mb-3">📌 Tips Penggunaan</h2>
         <ul class="list-disc pl-5 text-gray-700 space-y-2">
             <li>Gunakan menu di kiri untuk mengelola konten desa dengan cepat.</li>
             <li>Selalu periksa kembali konten sebelum dipublikasikan.</li>

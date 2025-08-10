@@ -12,11 +12,12 @@ return new class extends Migration
         Schema::create('agenda_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai')->nullable();
+            $table->date('tanggal');
+            $table->time('jam_mulai')->nullable();
+            $table->time('jam_selesai')->nullable();
             $table->string('lokasi')->nullable();
             $table->text('deskripsi')->nullable();
-            $table->enum('status', ['aktif', 'selesai', 'batal'])->default('aktif');
+            $table->enum('status', ['Aktif', 'Selesai', 'Batal'])->default('Aktif');
             $table->timestamps();
         });
     }

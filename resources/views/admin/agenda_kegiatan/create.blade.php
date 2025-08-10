@@ -3,7 +3,7 @@
 @section('title', 'Tambah Agenda Kegiatan')
 
 @section('content')
-<div class="bg-white p-6 rounded shadow max-w-lg mx-auto">
+<div class="container mx-auto p-4 max-w-3xl">
     <h1 class="text-2xl font-bold mb-6">Tambah Agenda Kegiatan</h1>
 
     <form action="{{ route('agenda_kegiatan.store') }}" method="POST" class="space-y-4">
@@ -12,26 +12,35 @@
         <div>
             <label class="block mb-1 font-semibold">Judul <span class="text-red-500">*</span></label>
             <input type="text" name="judul" value="{{ old('judul') }}" 
-                   class="w-full border rounded px-3 py-2 @error('judul') border-red-500 @enderror">
+                   class="w-full border rounded px-3 py-2 @error('judul') border-red-500 @enderror" required>
             @error('judul')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label class="block mb-1 font-semibold">Tanggal Mulai <span class="text-red-500">*</span></label>
-            <input type="date" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}" 
-                   class="w-full border rounded px-3 py-2 @error('tanggal_mulai') border-red-500 @enderror">
-            @error('tanggal_mulai')
+            <label class="block mb-1 font-semibold">Tanggal <span class="text-red-500">*</span></label>
+            <input type="date" name="tanggal" value="{{ old('tanggal') }}" 
+                   class="w-full border rounded px-3 py-2 @error('tanggal') border-red-500 @enderror" required>
+            @error('tanggal')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label class="block mb-1 font-semibold">Tanggal Selesai</label>
-            <input type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}" 
-                   class="w-full border rounded px-3 py-2 @error('tanggal_selesai') border-red-500 @enderror">
-            @error('tanggal_selesai')
+            <label class="block mb-1 font-semibold">Jam Mulai</label>
+            <input type="time" name="jam_mulai" value="{{ old('jam_mulai') }}" step="60"
+                   class="w-full border rounded px-3 py-2 @error('jam_mulai') border-red-500 @enderror">
+            @error('jam_mulai')
+                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label class="block mb-1 font-semibold">Jam Selesai</label>
+            <input type="time" name="jam_selesai" value="{{ old('jam_selesai') }}" step="60"
+                   class="w-full border rounded px-3 py-2 @error('jam_selesai') border-red-500 @enderror">
+            @error('jam_selesai')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
@@ -56,8 +65,12 @@
 
         <div>
             <label class="block mb-1 font-semibold">Status</label>
-            <input type="text" name="status" value="{{ old('status') }}" 
-                   class="w-full border rounded px-3 py-2 @error('status') border-red-500 @enderror">
+            <select name="status" 
+                    class="w-full border rounded px-3 py-2 @error('status') border-red-500 @enderror">
+                <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                <option value="Selesai" {{ old('status') == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                <option value="Batal" {{ old('status') == 'Batal' ? 'selected' : '' }}>Batal</option>
+            </select>
             @error('status')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
