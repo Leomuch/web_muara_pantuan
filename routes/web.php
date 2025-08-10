@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\StrukturDesaController as AdminStrukturDesaController;
 use App\Http\Controllers\StrukturDesaController as FrontendStrukturDesaController;
-
+use App\Http\Controllers\Admin\AgendaKegiatanController;
 
 // ===== HALAMAN UTAMA USER =====
 Route::get('/', function () {
@@ -99,6 +99,15 @@ Route::prefix('admin')->group(function () {
             'edit' => 'struktur_desa.edit',
             'update' => 'struktur_desa.update',
             'destroy' => 'struktur_desa.destroy',
+        ]);
+
+        Route::resource('agenda-kegiatan', AgendaKegiatanController::class)->names([
+            'index' => 'agenda_kegiatan.index',
+            'create' => 'agenda_kegiatan.create',
+            'store' => 'agenda_kegiatan.store',
+            'edit' => 'agenda_kegiatan.edit',
+            'update' => 'agenda_kegiatan.update',
+            'destroy' => 'agenda_kegiatan.destroy',
         ]);
 
         // Logout Admin

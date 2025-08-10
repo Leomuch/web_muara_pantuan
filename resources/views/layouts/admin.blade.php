@@ -20,6 +20,7 @@
             <a href="{{ route('pengumuman.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">📢 Kelola Pengumuman</a>
             <a href="{{ route('profil.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">🏛 Profil Desa</a>
             <a href="{{ route('struktur_desa.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">👔 Jabatan Desa</a>
+            <a href="{{ route('agenda_kegiatan.index') }}" class="block px-4 py-2 rounded hover:bg-green-600">📅 Agenda Kegiatan</a>
         </nav>
         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="px-4 py-4 border-t border-green-600">
             @csrf
