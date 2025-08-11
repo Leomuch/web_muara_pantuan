@@ -3,7 +3,6 @@
     style="background: url('{{ asset('img/bgdesapantuan.jpg') }}') center center / cover no-repeat; min-height: 100vh; position: relative; width: 100%;">
 
     <!-- Overlay -->
-    <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4);"></div>
 
     <!-- Konten -->
     <div style="position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; color: white; padding: 0 1rem;">

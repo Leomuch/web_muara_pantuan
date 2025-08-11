@@ -5,13 +5,24 @@
 @section('content')
 
 <!-- Hero Section -->
-<section class="relative w-full h-screen bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('{{ asset('img/bgdesapantuan.jpg') }}');">
-    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+<section 
+    class="relative w-full h-screen bg-cover bg-center flex items-center justify-center text-white"
+    style="background-image: url('{{ asset('img/bgdesapantuan.jpg') }}');">
+    
+    {{-- Overlay --}}
+    <div class="absolute inset-0 bg-black/60"></div>
+    
+    {{-- Konten --}}
     <div class="relative z-10 text-center px-6">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Website Desa Muara Pantuan</h1>
-        <p class="text-lg md:text-xl max-w-2xl mx-auto">Pusat informasi dan layanan digital masyarakat desa.</p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+            Website Desa Muara Pantuan
+        </h1>
+        <p class="text-lg md:text-xl max-w-2xl mx-auto">
+            Pusat informasi dan layanan digital masyarakat desa.
+        </p>
     </div>
 </section>
+
 
 <!-- Berita Desa -->
 <section class="py-12 bg-gray-50">
