@@ -1,9 +1,14 @@
 <nav class="bg-white shadow-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center">
+    <div class="flex justify-between h-20 items-center"> {{-- h-20 untuk navbar lebih tinggi --}}
       <div class="flex-shrink-0">
-        <a href="{{ url('/') }}" class="text-xl font-bold text-gray-800">LogoDesa</a>
+        <a href="{{ url('/') }}">
+          <img src="{{ asset('img/logodesa2.png') }}" 
+               alt="Logo Desa" 
+               class="h-16 w-auto"> {{-- h-16 = tinggi sekitar 64px --}}
+        </a>
       </div>
+
       <div class="hidden md:flex space-x-8">
         @php
             $navItems = [
