@@ -24,9 +24,19 @@ class PengumumanController extends Controller
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',
+            'gambar' => 'nullable|image|max:2048',
         ]);
 
-        Pengumuman::create($request->only('judul', 'isi'));
+        $gambarPath = null;
+        if ($request->hasFile('gambar')) {
+            $gambarPath = $request->file('gambar')->store('pengumuman', 'public');
+        }
+
+        Pengumuman::create([
+            'judul' => $request->judul,
+            'isi' => $request->isi,
+            'gambar' => $gambarPath,
+        ]);
 
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan!');
     }
@@ -41,15 +51,34 @@ class PengumumanController extends Controller
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',
+            'gambar' => 'nullable|image|max:2048',
         ]);
 
-        $pengumuman->update($request->only('judul', 'isi'));
+        if ($request->hasFile('gambar')) {
+            // hapus gambar lama jika ada
+            if ($pengumuman->gambar && \Storage::disk('public')->exists($pengumuman->gambar)) {
+                \Storage::disk('public')->delete($pengumuman->gambar);
+            }
+
+            $pengumuman->gambar = $request->file('gambar')->store('pengumuman', 'public');
+        }
+
+        $pengumuman->update([
+            'judul' => $request->judul,
+            'isi' => $request->isi,
+            'gambar' => $pengumuman->gambar,
+        ]);
 
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui!');
     }
 
     public function destroy(Pengumuman $pengumuman)
     {
+        // hapus gambar dari storage jika ada
+        if ($pengumuman->gambar && \Storage::disk('public')->exists($pengumuman->gambar)) {
+            \Storage::disk('public')->delete($pengumuman->gambar);
+        }
+
         $pengumuman->delete();
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dihapus.');
     }
