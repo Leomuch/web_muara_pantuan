@@ -40,7 +40,7 @@
                 <div class="p-6">
                     <h5 class="text-xl font-semibold text-gray-800 mb-2">{{ $item->judul }}</h5>
                     <p class="text-gray-600 mb-4">{{ Str::limit(strip_tags($item->isi ?? $item->deskripsi ?? ''), 120, '...') }}</p>
-                    <a href="{{ route('berita.show', $item->id) }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">Baca Selengkapnya</a>
+                    <a href="{{ route('frontend.berita.show', $item->id) }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">Baca Selengkapnya</a>
                 </div>
             </div>
             @empty
@@ -66,6 +66,7 @@
                 <div class="p-4">
                     <h3 class="text-xl font-semibold mb-2">{{ $item->judul }}</h3>
                     <p class="text-gray-700 text-sm">{{ Str::limit($item->deskripsi, 120, '...') }}</p>
+                    <a href="{{ route('frontend.pengumuman.show', $item->id) }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">Baca Selengkapnya</a>
                 </div>
             </div>
             @empty

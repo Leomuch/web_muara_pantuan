@@ -4,23 +4,29 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\ShowBeritaController;
+use App\Http\Controllers\ShowPengumumanController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\Admin\StrukturDesaController as AdminStrukturDesaController;
 use App\Http\Controllers\StrukturDesaController as FrontendStrukturDesaController;
 use App\Http\Controllers\Admin\AgendaKegiatanController;
+use App\Http\Controllers\Admin\ProfilDesaController;
+use App\Http\Controllers\Admin\ProfilDesaSectionController;
 
 // ===== HALAMAN UTAMA USER =====
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/profil', function () {
-    return view('pages.profil');
-})->name('profil');
 
 Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
+Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
+
 Route::get('/struktur-desa', [FrontendStrukturDesaController::class, 'index'])->name('pages.struktur');
+
+Route ::get('/berita/{id}', [ShowBeritaController::class, 'show'])->name('frontend.berita.show');
+Route ::get('/pengumuman/{id}', [ShowPengumumanController::class, 'show'])->name('frontend.pengumuman.show');
 
 // ===== ADMIN STATIC VIEW (Optional if not using controller) =====
 Route::view('/admin/dashboard', 'admin.dashboard');
@@ -44,10 +50,6 @@ Route::prefix('admin')->group(function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
 
-        Route::get('/admin/profil', function () {
-            return 'Halaman Profil Desa';
-        })->name('profil.index');
-
         // Halaman Sejarah
         Route::get('/sejarah', function () {
             return view('admin.sejarah.index');
@@ -57,18 +59,47 @@ Route::prefix('admin')->group(function () {
             return view('admin.sejarah.create');
         });
 
+        // ✅ CRUD Profil Desa
+        Route::resource('profil-desa', ProfilDesaController::class)
+        ->parameters(['profil-desa' => 'profil'])
+        ->names([
+            'index' => 'profil.index',
+            'create' => 'profil.create',
+            'store' => 'profil.store',
+            'edit' => 'profil.edit',
+            'update' => 'profil.update',
+            'destroy' => 'profil.destroy',
+            'show' => 'profil.show',
+        ]);
+
+        // ✅ Nested CRUD untuk Section di dalam Profil Desa
+        Route::resource('profil-desa.section', ProfilDesaSectionController::class)
+        ->parameters([
+            'profil-desa' => 'profil',
+            'section' => 'section'
+        ])
+        ->names([
+            'index' => 'profil.sections.index',
+            'create' => 'profil.sections.create',
+            'store' => 'profil.sections.store',
+            'edit' => 'profil.sections.edit',
+            'update' => 'profil.sections.update',
+            'destroy' => 'profil.sections.destroy',
+            'show' => 'profil.sections.show',
+        ]);
+
         // ✅ CRUD PENGUMUMAN
         Route::resource('pengumuman', PengumumanController::class)
-            ->parameters(['pengumuman' => 'pengumuman'])
-            ->names([
-                'index'   => 'pengumuman.index',
-                'create'  => 'pengumuman.create',
-                'store'   => 'pengumuman.store',
-                'edit'    => 'pengumuman.edit',
-                'update'  => 'pengumuman.update',
-                'destroy' => 'pengumuman.destroy',
-                'show'    => 'pengumuman.show',
-            ]);
+        ->parameters(['pengumuman' => 'pengumuman'])
+        ->names([
+            'index'   => 'pengumuman.index',
+            'create'  => 'pengumuman.create',
+            'store'   => 'pengumuman.store',
+            'edit'    => 'pengumuman.edit',
+            'update'  => 'pengumuman.update',
+            'destroy' => 'pengumuman.destroy',
+            'show'    => 'pengumuman.show',
+        ]);
 
         // ✅ CRUD BERITA
         Route::resource('berita', BeritaController::class)
@@ -77,11 +108,11 @@ Route::prefix('admin')->group(function () {
             'index'   => 'berita.index',
             'create'  => 'berita.create',
             'store'   => 'berita.store',
-                'edit'    => 'berita.edit',
-                'update'  => 'berita.update',
-                'destroy' => 'berita.destroy',
-                'show'    => 'berita.show',
-            ]);
+            'edit'    => 'berita.edit',
+            'update'  => 'berita.update',
+            'destroy' => 'berita.destroy',
+            'show'    => 'berita.show',
+        ]);
             
         // ✅ CRUD Struktur Desa
         Route::resource('struktur-desa', AdminStrukturDesaController::class)->names([

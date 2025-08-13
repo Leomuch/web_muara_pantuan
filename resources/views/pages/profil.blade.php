@@ -3,68 +3,74 @@
 @section('title', 'Profil Desa')
 
 @section('content')
-
 <section class="py-20 bg-gradient-to-b from-green-50 via-white to-green-100">
   <div class="container mx-auto px-6">
     <!-- Judul -->
     <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-green-800 mb-4 animate-fadeInDown">Profil Desa Muara Pantuan</h2>
-      <p class="text-lg text-gray-600 animate-fadeIn delay-100">Mengenal lebih dekat tentang sejarah, visi, misi, dan struktur pemerintahan Desa Muara Pantuan.</p>
+      <h2 class="text-4xl font-bold text-green-800 mb-4">{{ $profil->nama_desa }}</h2>
+      @if($profil->foto_hero)
+        <img src="{{ asset('storage/'.$profil->foto_hero) }}" class="mx-auto rounded-lg shadow mb-6" alt="Foto Profil Desa">
+      @endif
     </div>
 
-    <!-- Sejarah -->
-    <div class="mb-16 md:flex md:items-center gap-10 animate-fadeInUp delay-200">
-      <img src="{{ asset('img/sejarah.jpg') }}" alt="Sejarah Desa" class="rounded-xl shadow-lg w-full md:w-1/2 mb-6 md:mb-0">
-      <div class="md:w-1/2">
-        <h3 class="text-2xl font-semibold text-green-700 mb-4">Sejarah Singkat</h3>
-        <p class="text-gray-700 leading-relaxed">
-          Desa Muara Pantuan telah ada sejak zaman penjajahan, dikenal sebagai pusat jalur transportasi sungai dan memiliki akar budaya pesisir yang kuat. Dahulu dikenal sebagai "Desa Murah Bantuan", desa ini telah berkembang menjadi desa mandiri berbasis kelautan dan pertanian tambak.
-        </p>
-      </div>
+    <!-- Tab Navigation -->
+    <div class="mb-8 border-b">
+      <ul class="flex justify-center space-x-4">
+        <li><button class="tab-btn py-2 px-4 border-b-2 border-green-600 font-semibold text-green-700" data-tab="umum">Informasi Umum</button></li>
+        <li><button class="tab-btn py-2 px-4 border-b-2 border-transparent hover:border-green-600" data-tab="kondisi">Kondisi dan Potensi </button></li>
+        <li><button class="tab-btn py-2 px-4 border-b-2 border-transparent hover:border-green-600" data-tab="visi">Visi & Misi</button></li>
+      </ul>
     </div>
 
-    <!-- Visi dan Misi -->
-    <div class="bg-white p-8 rounded-2xl shadow-xl mb-16 animate-fadeInUp delay-300">
-      <h3 class="text-2xl font-semibold text-green-700 mb-4 text-center">Visi dan Misi</h3>
-      <div class="grid md:grid-cols-2 gap-8 text-gray-700">
-        <div>
-          <h4 class="font-semibold text-green-600 mb-2">Visi</h4>
-          <p>Mewujudkan Desa Muara Pantuan sebagai desa mandiri, sejahtera, dan berbasis kearifan lokal.</p>
+    <!-- Tab Contents -->
+    <div id="tab-umum" class="tab-content">
+      @foreach($profil->sections->where('tipe', 'informasi_umum') as $section)
+        <div class="mb-6">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">{{ $section->judul }}</h3>
+          @if($section->gambar)
+            <img src="{{ asset('storage/'.$section->gambar) }}" class="w-full md:w-1/2 rounded-lg shadow mb-4">
+          @endif
+          <div class="text-gray-700">{!! nl2br(e($section->isi)) !!}</div>
         </div>
-        <div>
-          <h4 class="font-semibold text-green-600 mb-2">Misi</h4>
-          <ul class="list-disc ml-5 space-y-2">
-            <li>Meningkatkan kualitas pendidikan dan kesehatan masyarakat.</li>
-            <li>Memajukan ekonomi berbasis tambak dan wisata mangrove.</li>
-            <li>Menjaga nilai-nilai budaya dan tradisi desa.</li>
-            <li>Memperkuat pelayanan publik berbasis digital.</li>
-          </ul>
-        </div>
-      </div>
+      @endforeach
     </div>
 
-    <!-- Struktur Pemerintahan -->
-    <div class="animate-fadeInUp delay-500">
-      <h3 class="text-2xl font-semibold text-green-700 mb-6 text-center">Struktur Pemerintahan</h3>
-      <div class="grid md:grid-cols-3 gap-8 text-center">
-        <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition">
-          <img src="{{ asset('img/kepala-desa.jpg') }}" alt="Kepala Desa" class="w-24 h-24 mx-auto rounded-full shadow-md mb-4 object-cover">
-          <h4 class="font-bold text-lg text-green-800">H. Edi</h4>
-          <p class="text-gray-600 text-sm">Kepala Desa</p>
+    <div id="tab-kondisi" class="tab-content hidden">
+      @foreach($profil->sections->where('tipe', 'kondisi_potensi') as $section)
+        <div class="mb-6">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">{{ $section->judul }}</h3>
+          @if($section->gambar)
+            <img src="{{ asset('storage/'.$section->gambar) }}" class="w-full md:w-1/2 rounded-lg shadow mb-4">
+          @endif
+          <div class="text-gray-700">{!! nl2br(e($section->isi)) !!}</div>
         </div>
-        <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition">
-          <img src="{{ asset('img/sekdes.jpg') }}" alt="Sekretaris Desa" class="w-24 h-24 mx-auto rounded-full shadow-md mb-4 object-cover">
-          <h4 class="font-bold text-lg text-green-800">Sardila</h4>
-          <p class="text-gray-600 text-sm">Sekretaris Desa</p>
-        </div>
-        <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition">
-          <img src="{{ asset('img/kadus.jpg') }}" alt="Kepala Dusun" class="w-24 h-24 mx-auto rounded-full shadow-md mb-4 object-cover">
-          <h4 class="font-bold text-lg text-green-800">lorem</h4>
-          <p class="text-gray-600 text-sm">ipsum</p>
-        </div>
-      </div>
+      @endforeach
     </div>
+
+    <div id="tab-visi" class="tab-content hidden">
+      @foreach($profil->sections->where('tipe', 'visi_misi') as $section)
+        <div class="mb-6">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">{{ $section->judul }}</h3>
+          @if($section->gambar)
+            <img src="{{ asset('storage/'.$section->gambar) }}" class="w-full md:w-1/2 rounded-lg shadow mb-4">
+          @endif
+          <div class="text-gray-700">{!! nl2br(e($section->isi)) !!}</div>
+        </div>
+      @endforeach
+    </div>
+
   </div>
 </section>
 
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('border-green-600', 'text-green-700', 'font-semibold'));
+      btn.classList.add('border-green-600', 'text-green-700', 'font-semibold');
+
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+      document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+    });
+  });
+</script>
 @endsection

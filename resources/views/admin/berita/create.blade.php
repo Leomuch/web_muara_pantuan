@@ -14,7 +14,7 @@
         </div>
 
         <div>
-            <label class="block font-semibold mb-1">Konten</label>
+            <label class="block font-semibold mb-1">Isi</label>
             <textarea name="isi" rows="6" class="w-full border rounded px-3 py-2">{{ old('isi') }}</textarea>
             @error('isi') <small class="text-red-600">{{ $message }}</small> @enderror
         </div>

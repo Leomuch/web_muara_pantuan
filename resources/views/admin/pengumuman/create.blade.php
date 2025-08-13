@@ -19,6 +19,12 @@
             @error('isi') <small class="text-red-600">{{ $message }}</small> @enderror
         </div>
 
+        <div>
+            <label class="block font-semibold mb-1">Gambar (opsional)</label>
+            <input type="file" name="gambar" class="w-full">
+            @error('gambar') <small class="text-red-600">{{ $message }}</small> @enderror
+        </div>
+
         <button type="submit" class="bg-green-600 hover:bg-green-700 text-black px-4 py-2 rounded">Simpan</button>
         <a href="{{ route('pengumuman.index') }}" class="ml-2 text-gray-600 hover:underline">Kembali</a>
     </form>
