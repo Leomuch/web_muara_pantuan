@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     <div class="relative container mx-auto px-6 z-10">
         <h2 class="text-4xl font-bold mb-6 text-center">Sejarah Desa Muara Pantuan</h2>
-        <div class="max-w-4xl mx-auto text-lg leading-relaxed space-y-4">
+        <div class="max-w-4xl mx-auto text-lg leading-relaxed space-y-4 text-justify">
             Desa  Muara  Pantuan  merupakan  salah  satu  desa  yang 
 terletak  di  Kecamatan  Anggana, 
 Kabupaten  Kutai  Kartanegara, 
