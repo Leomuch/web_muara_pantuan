@@ -14,18 +14,19 @@
 
     <div class="grid md:grid-cols-2 gap-10 items-center">
       <!-- Form Kontak -->
-      <form class="bg-white shadow-xl rounded-2xl p-8 space-y-6 animate-slide-in-left">
+      <form action="{{ route('kirim.pesan') }}" method="POST" class="bg-white shadow-xl rounded-2xl p-8 space-y-6 animate-slide-in-left">
+        @csrf
         <div>
           <label class="block text-sm font-semibold text-gray-700">Nama</label>
-          <input type="text" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400" placeholder="Nama lengkap" />
+          <input type="text" name="nama" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400" placeholder="Nama lengkap" />
         </div>
         <div>
           <label class="block text-sm font-semibold text-gray-700">Email</label>
-          <input type="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400" placeholder="Alamat Email" />
+          <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400" placeholder="Alamat Email" />
         </div>
         <div>
           <label class="block text-sm font-semibold text-gray-700">Pesan</label>
-          <textarea rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400" placeholder="Tuliskan pesan..."></textarea>
+          <textarea name="pesan" rows="5" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400" placeholder="Tuliskan pesan..."></textarea>
         </div>
         <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition duration-300 shadow-md">
           Kirim Pesan
@@ -39,7 +40,7 @@
           <ul class="space-y-3 text-gray-700">
             <li><strong>Alamat:</strong> Jl. Desa Muara Pantuan, Kec. Anggana, Kutai Kartanegara</li>
             <li><strong>Telepon:</strong> 0812-3456-7890</li>
-            <li><strong>Email:</strong> info@desamuara.id</li>
+            <li><strong>Email:</strong> infodesamuarapantuan@gmail.com</li>
             <li><strong>Jam Layanan:</strong> Senin - Jumat, 08.00 - 16.00</li>
           </ul>
         </div>

@@ -13,129 +13,53 @@ use App\Http\Controllers\StrukturDesaController as FrontendStrukturDesaControlle
 use App\Http\Controllers\Admin\AgendaKegiatanController;
 use App\Http\Controllers\Admin\ProfilDesaController;
 use App\Http\Controllers\Admin\ProfilDesaSectionController;
+use App\Http\Controllers\KontakController;
 
-// ===== HALAMAN UTAMA USER =====
+
+// ===== HALAMAN UTAMA USER (MASYARAKAT, TANPA LOGIN) =====
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/kontak', function () {
-    return view('pages.kontak');
-})->name('kontak');
-
+Route::get('/kontak', fn() => view('pages.kontak'))->name('kontak');
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
-
 Route::get('/struktur-desa', [FrontendStrukturDesaController::class, 'index'])->name('pages.struktur');
-
-Route ::get('/berita/{id}', [ShowBeritaController::class, 'show'])->name('frontend.berita.show');
-Route ::get('/pengumuman/{id}', [ShowPengumumanController::class, 'show'])->name('frontend.pengumuman.show');
-
-// ===== ADMIN STATIC VIEW (Optional if not using controller) =====
-Route::view('/admin/dashboard', 'admin.dashboard');
-Route::view('/admin/sejarah', 'admin.sejarah.index');
-Route::view('/admin/sejarah/create', 'admin.sejarah.create');
+Route::get('/berita/{id}', [ShowBeritaController::class, 'show'])->name('frontend.berita.show');
+Route::get('/pengumuman/{id}', [ShowPengumumanController::class, 'show'])->name('frontend.pengumuman.show');
+Route::post('/kirim-pesan', [KontakController::class, 'kirim'])->name('kirim.pesan');
 
 // ===== ADMIN AREA =====
 Route::prefix('admin')->group(function () {
+    // Login Admin
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-    // Login Admin - hanya jika belum login
-    Route::middleware('guest:admin')->group(function () {
-        Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
-        Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
-    });
+    // Dashboard & Menu Admin (butuh login)
+    Route::middleware(['auth.admin'])->group(function () {
+        Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
 
-    // Halaman admin - hanya jika sudah login
-    Route::middleware('auth:admin')->group(function () {
+        // Halaman Sejarah (contoh static view)
+        Route::view('/sejarah', 'admin.sejarah.index');
+        Route::view('/sejarah/create', 'admin.sejarah.create');
 
-        // Dashboard
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
-
-        // Halaman Sejarah
-        Route::get('/sejarah', function () {
-            return view('admin.sejarah.index');
-        });
-
-        Route::get('/sejarah/create', function () {
-            return view('admin.sejarah.create');
-        });
-
-        // ✅ CRUD Profil Desa
+        // CRUD Profil Desa
         Route::resource('profil-desa', ProfilDesaController::class)
-        ->parameters(['profil-desa' => 'profil'])
-        ->names([
-            'index' => 'profil.index',
-            'create' => 'profil.create',
-            'store' => 'profil.store',
-            'edit' => 'profil.edit',
-            'update' => 'profil.update',
-            'destroy' => 'profil.destroy',
-            'show' => 'profil.show',
-        ]);
+            ->parameters(['profil-desa' => 'profil'])
+            ->names('profil');
 
-        // ✅ Nested CRUD untuk Section di dalam Profil Desa
+        // CRUD Section Profil Desa
         Route::resource('profil-desa.section', ProfilDesaSectionController::class)
-        ->parameters([
-            'profil-desa' => 'profil',
-            'section' => 'section'
-        ])
-        ->names([
-            'index' => 'profil.sections.index',
-            'create' => 'profil.sections.create',
-            'store' => 'profil.sections.store',
-            'edit' => 'profil.sections.edit',
-            'update' => 'profil.sections.update',
-            'destroy' => 'profil.sections.destroy',
-            'show' => 'profil.sections.show',
-        ]);
+            ->parameters(['profil-desa' => 'profil', 'section' => 'section'])
+            ->names('profil.sections');
 
-        // ✅ CRUD PENGUMUMAN
-        Route::resource('pengumuman', PengumumanController::class)
-        ->parameters(['pengumuman' => 'pengumuman'])
-        ->names([
-            'index'   => 'pengumuman.index',
-            'create'  => 'pengumuman.create',
-            'store'   => 'pengumuman.store',
-            'edit'    => 'pengumuman.edit',
-            'update'  => 'pengumuman.update',
-            'destroy' => 'pengumuman.destroy',
-            'show'    => 'pengumuman.show',
-        ]);
+        // CRUD Pengumuman
+        Route::resource('pengumuman', PengumumanController::class)->names('pengumuman');
 
-        // ✅ CRUD BERITA
-        Route::resource('berita', BeritaController::class)
-        ->parameters(['berita' => 'berita'])
-        ->names([
-            'index'   => 'berita.index',
-            'create'  => 'berita.create',
-            'store'   => 'berita.store',
-            'edit'    => 'berita.edit',
-            'update'  => 'berita.update',
-            'destroy' => 'berita.destroy',
-            'show'    => 'berita.show',
-        ]);
-            
-        // ✅ CRUD Struktur Desa
-        Route::resource('struktur-desa', AdminStrukturDesaController::class)->names([
-            'index' => 'struktur_desa.index',
-            'create' => 'struktur_desa.create',
-            'store' => 'struktur_desa.store',
-            'edit' => 'struktur_desa.edit',
-            'update' => 'struktur_desa.update',
-            'destroy' => 'struktur_desa.destroy',
-        ]);
+        // CRUD Berita
+        Route::resource('berita', BeritaController::class)->names('berita');
 
-        Route::resource('agenda-kegiatan', AgendaKegiatanController::class)->names([
-            'index' => 'agenda_kegiatan.index',
-            'create' => 'agenda_kegiatan.create',
-            'store' => 'agenda_kegiatan.store',
-            'edit' => 'agenda_kegiatan.edit',
-            'update' => 'agenda_kegiatan.update',
-            'destroy' => 'agenda_kegiatan.destroy',
-        ]);
+        // CRUD Struktur Desa
+        Route::resource('struktur-desa', AdminStrukturDesaController::class)->names('struktur_desa');
 
-        // Logout Admin
-        Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+        // CRUD Agenda Kegiatan
+        Route::resource('agenda-kegiatan', AgendaKegiatanController::class)->names('agenda_kegiatan');
     });
 });
-
-
